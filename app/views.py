@@ -113,10 +113,15 @@ def edit_teacher(request):
         name = request.POST.get('name')
         print(tid)
         print(name)
-        conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', password='1qa2ws3ed', db='exercise',charset='utf8')
+        conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', password='1qa2ws3ed', db='exercise', charset='utf8')
         cursor = conn.cursor(cursor=pymysql.cursors.DictCursor)
-        cursor.execute('update teacher set name=%s where tid=%s', [name,tid,])
+        cursor.execute('update teacher set name=%s where tid=%s', [name, tid, ])
         conn.commit()
         cursor.close()
         conn.close()
         return redirect('/teachers/')
+
+
+def students(request):
+    if request.method == 'GET':
+        return render(request, '')
