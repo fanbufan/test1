@@ -6,8 +6,8 @@
 </head>
 <body>
     <h1>学生信息</h1>
-    <a href="">添加学生</a>
-    <table>
+    <p><a href="/add_student/">添加学生</a></p>
+    <table border="1px solid black">
         <thead>
             <tr>
                 <th>ID</th>
@@ -16,6 +16,20 @@
                 <th>操作</th>
             </tr>
         </thead>
+        <tbody>
+            {% for item in students_list %}
+                <tr>
+                    <td>{{ item.sid }}</td>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.title }}</td>
+                    <td>
+                        <a href="/edit_student/?sid={{ item.sid }}">编辑</a>
+                        |
+                        <a href="">删除</a>
+                    </td>
+                 </tr>
+            {% endfor %}
+        </tbody>
     </table>
 </body>
 </html>

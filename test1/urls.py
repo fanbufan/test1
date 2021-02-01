@@ -28,4 +28,6 @@ urlpatterns = [
     path('del_teacher/', views.del_teacher),
     path('edit_teacher/', views.edit_teacher),
     path('students/', views.students),
+    path('add_student/', views.add_student),
+    path('edit_student/', views.edit_student),
 ]
