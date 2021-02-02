@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 import pymysql
+from sql_fun import sqlhelper
 
 
 def classes(request):
@@ -151,27 +152,23 @@ def add_student(request):
         cursor.close()
         conn.close()
         return redirect('/students/')
-    
+
+
 def edit_student(request):
     if request.method == 'GET':
         sid = request.GET.get('sid')
-        conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', password='1qa2ws3ed', db='exercise', charset='utf8')
-        cursor = conn.cursor(cursor=pymysql.cursors.DictCursor)
-        cursor.execute('select sid, name, class_id from student where sid = %s', sid)
-        student_one_info = cursor.fetchone()
-        cursor.execute('select cid, title from class')
-        class_list = cursor.fetchall()
-        cursor.close()
-        conn.close()
+        student_one_info = sqlhelper.get_one('select sid, name, class_id from student where sid = %s', sid)
+        class_list = sqlhelper.get_all('select cid, title from class', [])
         return render(request, 'edit_student.html', {'student_one_info': student_one_info, 'class_list': class_list})
     else:
         sid = request.GET.get('sid')
         name = request.POST.get('name')
         class_id = request.POST.get('class_id')
-        conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', password='1qa2ws3ed', db='exercise', charset='utf8')
-        cursor = conn.cursor(cursor=pymysql.cursors.DictCursor)
-        cursor.execute('update student set name = %s, class_id = %s where sid = %s', [name, class_id, sid])
-        conn.commit()
-        cursor.close()
-        conn.close()
+        sqlhelper.modify('update student set name = %s, class_id = %s where sid = %s', [name, class_id, sid])
         return redirect('/students/')
+
+
+def del_student(request):
+    sid = request.GET.get('sid')
+    sqlhelper.modify('delete from student where sid = %s', sid)
+    return redirect('/students/')
