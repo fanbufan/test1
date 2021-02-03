@@ -1,0 +1,24 @@
+.shadow{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: black;
+    opacity: 0.5;
+    z-index: 10;
+}
+.model{
+    position: fixed;
+    width: 500px;
+    height: 300px;
+    left: 50%;
+    top: 50%;
+    margin-left: -250px;
+    margin-top: -150px;
+    background-color: white;
+    z-index: 100;
+}
+.hide{
+    display: none;
+}

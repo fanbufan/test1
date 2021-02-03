@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 import pymysql
 from sql_fun import sqlhelper
 
@@ -20,7 +20,6 @@ def add_class(request):
     else:
         title = request.POST.get('title')
         if len(title.strip()) == 0:
-            print('this is post')
             return render(request, 'add_class.html', {'msg': '提交的内容不能为空'})
         else:
             conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', password='1qa2ws3ed', db='exercise', charset='utf8')
@@ -30,6 +29,15 @@ def add_class(request):
             cursor.close()
             conn.close()
             return redirect('/classes/')
+
+
+def model_add_class(request):
+    title = request.POST.get('title')
+    if len(title)>0:
+        sqlhelper.modify('insert into class (title) values (%s)', [title, ])
+        return HttpResponse('ok')
+    else:
+        return HttpResponse('班级不能为空')
 
 
 def del_class(request):
