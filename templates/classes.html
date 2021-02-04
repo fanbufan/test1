@@ -3,18 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <title>班级信息</title>
-    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/style.css?v=4">
 </head>
 <body>
 <div class="shadow hide"></div>
-<div class="model hide">
-    <p>班级名称：<input type="text" name="title" id="title"/></p>
-    <p><input type="button" name="" id="" onclick="AjaxSend();" value="提交"/></p>
-    <p id="msg_model">{{ msg }}</p>
+<div class="model_addClass hide">
+    <p>班级名称：<input type="text" name="title" class="title"/></p>
+    <p>
+        <input type="button" name="" id="" onclick="AjaxAdd();" value="提交"/>
+        <button onclick="cancle();">取消</button>
+    </p>
+    <p class="msg_model">{{ msg }}</p>
+</div>
+<div class="model_editClass hide">
+    <p>班级名称：<input type="text" name="title" class="title"/></p>
+    <p>
+        <input type="button" name="" id="" onclick="AjaxEdit();" value="提交编辑"/>
+        <button onclick="cancle();">取消</button>
+    </p>
+    <p class="msg_model">{{ msg }}</p>
+</div>
+<div class="model_deleteClass hide">
+    <p>班级名称：<span name="title" class="title"></span></p>
+    <p>
+        <button onclick="AjaxDelete();">确定删除</button>
+        <button onclick="cancle();">取消</button>
+    </p>
 </div>
 <h1>班级列表</h1>
-<p><a href="/add_class/">添加班级</a></p>
-<p><a onclick="model();">添加班级-对话框</a></p>
+<p><a href="/add_class/">添加班级</a>&nbsp;<a onclick="model_addClass();">添加班级-对话框</a></p>
 <table border="1px solid black">
     <thead>
     <tr>
@@ -30,8 +47,10 @@
             <td>{{ item.title }}</td>
             <td>
                 <a href="/edit_class/?cid={{ item.cid }}">编辑</a>
+                <a onclick="model_editClass(this);">对话框编辑</a>
                 |
-                <a href="/del_class/?cid={{ item.cid }}">删除</a>
+                <a href="/del_class/?cid={{ item.cid }}">删除&nbsp;</a>
+                <a onclick="model_deleteClass(this);">对话框删除</a>
             </td>
         </tr>
     {% endfor %}
@@ -39,27 +58,90 @@
 </table>
 <script src="/static/js/jquery-3.5.1.min.js"></script>
 <script>
-    function model() {
+    function model_addClass() {
         $('.shadow').removeClass('hide');
-        $('.model').removeClass('hide');
+        $('.model_addClass').removeClass('hide');
     }
 
-    function AjaxSend() {
-        if ($('#title').val().length > 0) {
+    function model_editClass(obj) {
+        var cid = $(obj).parent().siblings().eq(0).text();
+        var title = $(obj).parent().siblings().eq(1).text();
+
+        $('.shadow').removeClass('hide');
+        $('.model_editClass').removeClass('hide');
+        $('.model_editClass .title').val(title);
+        $('.model_editClass .title').attr('cid', cid);
+    }
+
+    function model_deleteClass(obj) {
+        var cid = $(obj).parent().siblings().eq(0).text();
+        var title = $(obj).parent().siblings().eq(1).text();
+
+        $('.shadow').removeClass('hide');
+        $('.model_deleteClass').removeClass('hide');
+        $('.model_deleteClass .title').text(title);
+        $('.model_deleteClass .title').attr('cid', cid);
+    }
+
+    function cancle() {
+        $('.shadow').addClass('hide');
+        $('.model_addClass').addClass('hide');
+        $('.model_editClass').addClass('hide');
+        $('.model_deleteClass').addClass('hide');
+    }
+
+    function AjaxAdd() {
+        if ($('.model_addClass .title').val().length > 0) {
             $.ajax({
                 url: '/model_add_class/',
                 type: 'POST',
-                data: {'title': $('#title').val()},
+                data: {'title': $('.model_addClass .title').val()},
                 success: function (data) {
                     if (data == 'ok') {
                         location.href = '/classes/';
                     } else {
-                        $('#msg_model').text(data);
+                        $('.model_addClass .msg_model').text(data);
                     }
                 }
             })
         } else {
-            $('#msg_model').text('班级不能为空');
+            $('.model_addClass .msg_model').text('班级不能为空');
+        }
+    }
+
+    function AjaxDelete() {
+        $.ajax({
+            url: '/model_del_class/',
+            type: 'POST',
+            data: {'cid': $('.model_deleteClass .title').attr('cid')},
+            success: function (data) {
+                if (data == 'ok') {
+                    location.href = '/classes/';
+                } else {
+                    console.log('删除失败');
+                }
+            }
+        })
+    }
+
+    function AjaxEdit() {
+        if ($('.model_editClass .title').val().length > 0) {
+            $.ajax({
+                url: '/model_edit_class/',
+                type: 'POST',
+                data: {
+                    'cid': $('.model_editClass .title').attr('cid'), 'title': $('.model_editClass .title').val()
+                },
+                success: function (data) {
+                    if (data == 'ok') {
+                        location.href = '/classes/';
+                    } else {
+                        $('.model_editClass .msg_model').text(data);
+                    }
+                }
+            })
+        } else {
+            $('.model_editClass .msg_model').text('班级不能为空');
         }
     }
 </script>

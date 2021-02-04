@@ -32,4 +32,6 @@ urlpatterns = [
     path('edit_student/', views.edit_student),
     path('del_student/', views.del_student),
     path('model_add_class/', views.model_add_class),
+    path('model_del_class/', views.model_del_class),
+    path('model_edit_class/', views.model_edit_Class),
 ]

@@ -54,6 +54,12 @@ def del_class(request):
     return redirect('/classes/')
 
 
+def model_del_class(request):
+    cid = request.POST.get('cid')
+    sqlhelper.modify('delete from class where cid=%s', cid)
+    return HttpResponse('ok')
+
+
 def edit_class(request):
     if request.method == 'GET':
         cid = request.GET.get('cid')
@@ -68,8 +74,6 @@ def edit_class(request):
     else:
         cid = request.GET.get('cid')
         title = request.POST.get('title')
-        print(cid)
-        print(title)
         conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', password='1qa2ws3ed', db='exercise',
                                charset='utf8')
         cursor = conn.cursor(cursor=pymysql.cursors.DictCursor)
@@ -78,6 +82,13 @@ def edit_class(request):
         cursor.close()
         conn.close()
         return redirect('/classes/')
+
+
+def model_edit_Class(request):
+    cid = request.POST.get('cid')
+    title = request.POST.get('title')
+    sqlhelper.modify('update class set title=%s where cid=%s', [title, cid, ])
+    return HttpResponse('ok')
 
 
 def teachers(request):
@@ -106,7 +117,6 @@ def add_teahcer(request):
 
 def del_teacher(request):
     tid = request.GET.get('tid')
-    print(tid)
     conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', password='1qa2ws3ed', db='exercise',
                            charset='utf8')
     cursor = conn.cursor(cursor=pymysql.cursors.DictCursor)
@@ -129,8 +139,6 @@ def edit_teacher(request):
     else:
         tid = request.GET.get('tid')
         name = request.POST.get('name')
-        print(tid)
-        print(name)
         conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', password='1qa2ws3ed', db='exercise',
                                charset='utf8')
         cursor = conn.cursor(cursor=pymysql.cursors.DictCursor)
