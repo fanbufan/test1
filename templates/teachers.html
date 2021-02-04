@@ -5,29 +5,29 @@
     <title>老师信息</title>
 </head>
 <body>
-    <h1>老师信息</h1>
-    <p><a href="/add_teahcer/">添加老师</a></p>
-    <table border="1px solid black">
-        <thead>
-            <tr>
-                <th>tid</th>
-                <th>老师姓名</th>
-                <th>操作</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for item in teacher_list %}
-                <tr>
-                    <td>{{ item.tid }}</td>
-                    <td>{{ item.name }}</td>
-                    <td>
-                        <a href="/edit_teacher/?tid={{ item.tid }}">编辑</a>
-                        |
-                        <a href="/del_teacher/?tid={{ item.tid }}">删除</a>
-                    </td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+<h1>老师信息</h1>
+<p><a href="/add_teahcer/">添加老师</a></p>
+<table border="1px solid black">
+    <thead>
+    <tr>
+        <th>tid</th>
+        <th>老师姓名</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for item in teacher_list %}
+        <tr>
+            <td>{{ item.tid }}</td>
+            <td>{{ item.name }}</td>
+            <td>
+                <a href="/edit_teacher/?tid={{ item.tid }}">编辑</a>
+                |
+                <a href="/del_teacher/?tid={{ item.tid }}">删除</a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
 </body>
 </html>

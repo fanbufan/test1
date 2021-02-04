@@ -4,7 +4,8 @@ from sql_fun import sqlhelper
 
 
 def classes(request):
-    conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', password='1qa2ws3ed', db='exercise', charset='utf8')
+    conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', password='1qa2ws3ed', db='exercise',
+                           charset='utf8')
     cursor = conn.cursor(cursor=pymysql.cursors.DictCursor)
     cursor.execute('select cid, title from class')
     class_list = cursor.fetchall()
@@ -22,7 +23,8 @@ def add_class(request):
         if len(title.strip()) == 0:
             return render(request, 'add_class.html', {'msg': '提交的内容不能为空'})
         else:
-            conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', password='1qa2ws3ed', db='exercise', charset='utf8')
+            conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', password='1qa2ws3ed', db='exercise',
+                                   charset='utf8')
             cursor = conn.cursor(cursor=pymysql.cursors.DictCursor)
             cursor.execute('insert into class (title) values (%s)', title)
             conn.commit()
@@ -33,7 +35,7 @@ def add_class(request):
 
 def model_add_class(request):
     title = request.POST.get('title')
-    if len(title)>0:
+    if len(title) > 0:
         sqlhelper.modify('insert into class (title) values (%s)', [title, ])
         return HttpResponse('ok')
     else:
@@ -42,7 +44,8 @@ def model_add_class(request):
 
 def del_class(request):
     cid = request.GET.get('cid')
-    conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', password='1qa2ws3ed', db='exercise', charset='utf8')
+    conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', password='1qa2ws3ed', db='exercise',
+                           charset='utf8')
     cursor = conn.cursor(cursor=pymysql.cursors.DictCursor)
     cursor.execute('delete from class where cid=%s', cid)
     conn.commit()
@@ -54,7 +57,8 @@ def del_class(request):
 def edit_class(request):
     if request.method == 'GET':
         cid = request.GET.get('cid')
-        conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', password='1qa2ws3ed', db='exercise', charset='utf8')
+        conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', password='1qa2ws3ed', db='exercise',
+                               charset='utf8')
         cursor = conn.cursor(cursor=pymysql.cursors.DictCursor)
         cursor.execute('select cid, title from class where cid=%s', cid)
         result = cursor.fetchone()
@@ -66,7 +70,8 @@ def edit_class(request):
         title = request.POST.get('title')
         print(cid)
         print(title)
-        conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', password='1qa2ws3ed', db='exercise', charset='utf8')
+        conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', password='1qa2ws3ed', db='exercise',
+                               charset='utf8')
         cursor = conn.cursor(cursor=pymysql.cursors.DictCursor)
         cursor.execute('update class set title=%s where cid=%s', [title, cid, ])
         conn.commit()
@@ -76,7 +81,8 @@ def edit_class(request):
 
 
 def teachers(request):
-    conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', password='1qa2ws3ed', db='exercise', charset='utf8')
+    conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', password='1qa2ws3ed', db='exercise',
+                           charset='utf8')
     cursor = conn.cursor(cursor=pymysql.cursors.DictCursor)
     cursor.execute('select tid, name from teacher')
     teacher_list = cursor.fetchall()
@@ -88,7 +94,8 @@ def add_teahcer(request):
         return render(request, 'add_teacher.html')
     else:
         name = request.POST.get('name')
-        conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', password='1qa2ws3ed', db='exercise', charset='utf8')
+        conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', password='1qa2ws3ed', db='exercise',
+                               charset='utf8')
         cursor = conn.cursor(cursor=pymysql.cursors.DictCursor)
         cursor.execute('insert into teacher (name) values (%s)', name)
         conn.commit()
@@ -100,7 +107,8 @@ def add_teahcer(request):
 def del_teacher(request):
     tid = request.GET.get('tid')
     print(tid)
-    conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', password='1qa2ws3ed', db='exercise', charset='utf8')
+    conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', password='1qa2ws3ed', db='exercise',
+                           charset='utf8')
     cursor = conn.cursor(cursor=pymysql.cursors.DictCursor)
     cursor.execute('delete from teacher where tid=%s', tid)
     conn.commit()
@@ -112,7 +120,8 @@ def del_teacher(request):
 def edit_teacher(request):
     if request.method == 'GET':
         tid = request.GET.get('tid')
-        conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', password='1qa2ws3ed', db='exercise', charset='utf8')
+        conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', password='1qa2ws3ed', db='exercise',
+                               charset='utf8')
         cursor = conn.cursor(cursor=pymysql.cursors.DictCursor)
         cursor.execute('select tid,name from teacher where tid=%s', tid)
         result = cursor.fetchone()
@@ -122,7 +131,8 @@ def edit_teacher(request):
         name = request.POST.get('name')
         print(tid)
         print(name)
-        conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', password='1qa2ws3ed', db='exercise', charset='utf8')
+        conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', password='1qa2ws3ed', db='exercise',
+                               charset='utf8')
         cursor = conn.cursor(cursor=pymysql.cursors.DictCursor)
         cursor.execute('update teacher set name=%s where tid=%s', [name, tid, ])
         conn.commit()
@@ -132,9 +142,11 @@ def edit_teacher(request):
 
 
 def students(request):
-    conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', password='1qa2ws3ed', db='exercise', charset='utf8')
+    conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', password='1qa2ws3ed', db='exercise',
+                           charset='utf8')
     cursor = conn.cursor(cursor=pymysql.cursors.DictCursor)
-    cursor.execute('select student.sid, student.name, class.title from student left join class on student.class_id = class.cid')
+    cursor.execute(
+        'select student.sid, student.name, class.title from student left join class on student.class_id = class.cid')
     students_list = cursor.fetchall()
     cursor.close()
     conn.close()
@@ -143,7 +155,8 @@ def students(request):
 
 def add_student(request):
     if request.method == 'GET':
-        conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', password='1qa2ws3ed', db='exercise', charset='utf8')
+        conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', password='1qa2ws3ed', db='exercise',
+                               charset='utf8')
         cursor = conn.cursor(cursor=pymysql.cursors.DictCursor)
         cursor.execute('select cid, title from class')
         class_list = cursor.fetchall()
@@ -153,7 +166,8 @@ def add_student(request):
     else:
         name = request.POST.get('name')
         class_id = request.POST.get('class_id')
-        conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', password='1qa2ws3ed', db='exercise', charset='utf8')
+        conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', password='1qa2ws3ed', db='exercise',
+                               charset='utf8')
         cursor = conn.cursor(cursor=pymysql.cursors.DictCursor)
         cursor.execute('insert into student (name, class_id) values (%s, %s)', [name, class_id])
         conn.commit()

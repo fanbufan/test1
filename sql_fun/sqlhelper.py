@@ -2,7 +2,8 @@ import pymysql
 
 
 def get_all(sql, args):
-    conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', password='1qa2ws3ed', db='exercise', charset='utf8')
+    conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', password='1qa2ws3ed', db='exercise',
+                           charset='utf8')
     cursor = conn.cursor(cursor=pymysql.cursors.DictCursor)
     cursor.execute(sql, args)
     result = cursor.fetchall()
@@ -12,7 +13,8 @@ def get_all(sql, args):
 
 
 def get_one(sql, args):
-    conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', password='1qa2ws3ed', db='exercise', charset='utf8')
+    conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', password='1qa2ws3ed', db='exercise',
+                           charset='utf8')
     cursor = conn.cursor(cursor=pymysql.cursors.DictCursor)
     cursor.execute(sql, args)
     result = cursor.fetchone()
@@ -22,7 +24,8 @@ def get_one(sql, args):
 
 
 def modify(sql, args):
-    conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', password='1qa2ws3ed', db='exercise', charset='utf8')
+    conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', password='1qa2ws3ed', db='exercise',
+                           charset='utf8')
     cursor = conn.cursor(cursor=pymysql.cursors.DictCursor)
     cursor.execute(sql, args)
     conn.commit()

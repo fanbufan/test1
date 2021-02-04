@@ -6,62 +6,62 @@
     <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
-    <div class="shadow hide"></div>
-    <div class="model hide">
-        <p>班级名称：<input type="text" name="title" id="title"/></p>
-        <p><input type="button" name="" id="" onclick="AjaxSend();" value="提交"/></p>
-        <p id="msg_model">{{ msg }}</p>
-    </div>
-    <h1>班级列表</h1>
-    <p><a href="/add_class/">添加班级</a></p>
-    <p><a onclick="model();">添加班级-对话框</a></p>
-    <table border="1px solid black">
-        <thead>
-            <tr>
-                <th>cid</th>
-                <th>班级</th>
-                <th>操作</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for item in class_list %}
-            <tr>
-                <td>{{ item.cid }}</td>
-                <td>{{ item.title }}</td>
-                <td>
-                    <a href="/edit_class/?cid={{ item.cid }}">编辑</a>
-                    |
-                    <a href="/del_class/?cid={{ item.cid }}">删除</a>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-    <script src="/static/js/jquery-3.5.1.min.js"></script>
-    <script>
-        function model(){
-            $('.shadow').removeClass('hide');
-            $('.model').removeClass('hide');
-        }
+<div class="shadow hide"></div>
+<div class="model hide">
+    <p>班级名称：<input type="text" name="title" id="title"/></p>
+    <p><input type="button" name="" id="" onclick="AjaxSend();" value="提交"/></p>
+    <p id="msg_model">{{ msg }}</p>
+</div>
+<h1>班级列表</h1>
+<p><a href="/add_class/">添加班级</a></p>
+<p><a onclick="model();">添加班级-对话框</a></p>
+<table border="1px solid black">
+    <thead>
+    <tr>
+        <th>cid</th>
+        <th>班级</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for item in class_list %}
+        <tr>
+            <td>{{ item.cid }}</td>
+            <td>{{ item.title }}</td>
+            <td>
+                <a href="/edit_class/?cid={{ item.cid }}">编辑</a>
+                |
+                <a href="/del_class/?cid={{ item.cid }}">删除</a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<script src="/static/js/jquery-3.5.1.min.js"></script>
+<script>
+    function model() {
+        $('.shadow').removeClass('hide');
+        $('.model').removeClass('hide');
+    }
 
-        function AjaxSend(){
-            if ($('#title').val().length > 0) {
-                $.ajax({
-                    url: '/model_add_class/',
-                    type: 'POST',
-                    data: {'title': $('#title').val()},
-                    success: function (data) {
-                        if (data == 'ok'){
-                            location.href = '/classes/';
-                        }else {
-                            $('#msg_model').text(data);
-                        }
+    function AjaxSend() {
+        if ($('#title').val().length > 0) {
+            $.ajax({
+                url: '/model_add_class/',
+                type: 'POST',
+                data: {'title': $('#title').val()},
+                success: function (data) {
+                    if (data == 'ok') {
+                        location.href = '/classes/';
+                    } else {
+                        $('#msg_model').text(data);
                     }
-                })
-            }else {
-                $('#msg_model').text('班级不能为空');
-            }
+                }
+            })
+        } else {
+            $('#msg_model').text('班级不能为空');
         }
-    </script>
+    }
+</script>
 </body>
 </html>

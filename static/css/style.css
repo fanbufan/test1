@@ -1,4 +1,4 @@
-.shadow{
+.shadow {
     position: fixed;
     top: 0;
     bottom: 0;
@@ -8,7 +8,8 @@
     opacity: 0.5;
     z-index: 10;
 }
-.model{
+
+.model {
     position: fixed;
     width: 500px;
     height: 300px;
@@ -19,6 +20,7 @@
     background-color: white;
     z-index: 100;
 }
-.hide{
+
+.hide {
     display: none;
 }

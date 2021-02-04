@@ -5,22 +5,22 @@
     <title>编辑学生</title>
 </head>
 <body>
-    <h1>编辑学生</h1>
-    <form action="/edit_student/?sid={{ student_one_info.sid }}" method="POST">
-        <p>学生姓名：<input type="text" name="name" value="{{ student_one_info.name }}"></p>
-        <p>
-            所属班级
-            <select name="class_id" id="">
-                {% for item in class_list %}
-                    {% if item.cid == student_one_info.class_id %}
-                        <option selected value="{{ item.cid }}">{{ item.title }}</option>
-                    {% else %}
-                        <option value="{{ item.cid }}">{{ item.title }}</option>
-                    {% endif %}
-                {% endfor %}
-            </select>
-        </p>
-        <p><input type="submit"></p>
-    </form>
+<h1>编辑学生</h1>
+<form action="/edit_student/?sid={{ student_one_info.sid }}" method="POST">
+    <p>学生姓名：<input type="text" name="name" value="{{ student_one_info.name }}"></p>
+    <p>
+        所属班级
+        <select name="class_id" id="">
+            {% for item in class_list %}
+                {% if item.cid == student_one_info.class_id %}
+                    <option selected value="{{ item.cid }}">{{ item.title }}</option>
+                {% else %}
+                    <option value="{{ item.cid }}">{{ item.title }}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+    </p>
+    <p><input type="submit"></p>
+</form>
 </body>
 </html>
