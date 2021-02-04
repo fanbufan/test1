@@ -31,7 +31,7 @@
     </p>
 </div>
 <h1>班级列表</h1>
-<p><a href="/add_class/">添加班级</a>&nbsp;<a onclick="model_addClass();">添加班级-对话框</a></p>
+<p><a href="/add_class/">添加班级</a>&nbsp;<a style="cursor: pointer" onclick="model_addClass();">添加班级-对话框</a></p>
 <table border="1px solid black">
     <thead>
     <tr>
@@ -47,10 +47,10 @@
             <td>{{ item.title }}</td>
             <td>
                 <a href="/edit_class/?cid={{ item.cid }}">编辑</a>
-                <a onclick="model_editClass(this);">对话框编辑</a>
+                <a style="cursor: pointer" onclick="model_editClass(this);">对话框编辑</a>
                 |
                 <a href="/del_class/?cid={{ item.cid }}">删除&nbsp;</a>
-                <a onclick="model_deleteClass(this);">对话框删除</a>
+                <a style="cursor: pointer" onclick="model_deleteClass(this);">对话框删除</a>
             </td>
         </tr>
     {% endfor %}
