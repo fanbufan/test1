@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, HttpResponse
 import pymysql
+import json
 from sql_fun import sqlhelper
 
 
@@ -85,10 +86,16 @@ def edit_class(request):
 
 
 def model_edit_Class(request):
-    cid = request.POST.get('cid')
-    title = request.POST.get('title')
-    sqlhelper.modify('update class set title=%s where cid=%s', [title, cid, ])
-    return HttpResponse('ok')
+    ret = {'status': True, 'message': None}
+    try:
+        cid = request.POST.get('cid')
+        title = request.POST.get('title')
+        print('cid:', cid,'title:', title)
+        sqlhelper.modify('update class set title=%s where cid=%s', [title, cid])
+    except Exception as e:
+        ret['status'] = False
+        ret['message'] = '处理异常'
+    return HttpResponse(json.dumps(ret))
 
 
 def teachers(request):

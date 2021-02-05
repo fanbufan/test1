@@ -133,15 +133,17 @@
                     'cid': $('.model_editClass .title').attr('cid'), 'title': $('.model_editClass .title').val()
                 },
                 success: function (data) {
-                    if (data == 'ok') {
-                        location.href = '/classes/';
+                    data = JSON.parse(data)
+                    if (data.status == true) {
+                        location.reload();
                     } else {
-                        $('.model_editClass .msg_model').text(data);
+                        $('.model_editClass .msg_model').text(data.message);
                     }
                 }
             })
         } else {
             $('.model_editClass .msg_model').text('班级不能为空');
+            return false;
         }
     }
 </script>
