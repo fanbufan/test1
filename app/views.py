@@ -165,7 +165,8 @@ def students(request):
     students_list = cursor.fetchall()
     cursor.close()
     conn.close()
-    return render(request, 'students.html', {'students_list': students_list})
+    class_list =  sqlhelper.get_all('select cid, title from class', [])
+    return render(request, 'students.html', {'students_list': students_list, 'class_list': class_list})
 
 
 def add_student(request):
@@ -189,6 +190,20 @@ def add_student(request):
         cursor.close()
         conn.close()
         return redirect('/students/')
+
+
+def model_add_student(request):
+    ret = {'status': True, 'message': None}
+    try:
+        name = request.POST.get('name')
+        class_id = request.POST.get('class_id')
+        print(name,class_id)
+        sqlhelper.modify('insert into student (name, class_id) values (%s, %s))', [name, class_id])
+    except Exception as e:
+        print(e)
+        ret['status'] = False
+        ret['message'] = str(e)
+    return HttpResponse(json.dumps(ret))
 
 
 def edit_student(request):
